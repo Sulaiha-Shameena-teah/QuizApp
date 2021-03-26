@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+</head>
+  <style>
+    .opt
+    {
+      background-color: white;
+    }
+    .opt:hover
+    {
+      background-color: rgba(228, 91, 91, 0.815);
+    }
+  </style>
+<body onload="callques()" style="background-color: aquamarine;">
+  <div class="text-center center mx-auto" style="margin-top: 30vh;">
+    <div class="row d-flex justify-content-center align-items-center">
+      <div class="col-md-4">
+        <b><p>Question: <span id="quesno">1</span>/3</p></b>
+        <progress id="progress" max="3" value="1" style="height: 50px;">  </progress>
+      </div>
+      <div class="col-md-4">
+        <b>Score</b>
+        <h1 class="text-primary"><span id="score"></span></h1> <br>
+        
+      </div>
+    </div>
+   
+    
+        <h3><p id="ques"></p></h3>
+        <br>
+        <div class="row d-flex justify-content-center m-2">
+          <div class="col-md-1 bg-primary p-2">
+            A
+          </div>
+          <div class="opt col-md-4  p-2 text-left">
+            <span id="opt-text-1" onclick="myFunction(id)"></span> 
+          </div>
+        </div>
+        <div class="row d-flex justify-content-center  m-2">
+          <div class="col-md-1 bg-primary p-2">
+            B
+          </div>
+          <div class="opt col-md-4  p-2 text-left">
+            <span id="opt-text-2" onclick="myFunction(id)"></span> 
+          </div>
+        </div>
+        <div class="row d-flex justify-content-center  m-2">
+          <div class="col-md-1 bg-primary p-2">
+            C
+          </div>
+          <div class="opt col-md-4  p-2 text-left">
+            <span id="opt-text-3" onclick="myFunction(id)"></span> 
+          </div>
+        </div>
+        <div class="row d-flex justify-content-center  m-2">
+          <div class="col-md-1 bg-primary p-2">
+            D
+          </div>
+          <div class="opt col-md-4 p-2 text-left">
+            <span id="opt-text-4" onclick="myFunction(id)"></span> 
+          </div>
+        </div>
+    </div>
+   
+</body>
+<script>
+
+    var ques = {
+        1: 'Inside which HTML element do we put the JavaScript?',
+        2: 'How do you write Hello World in the alert box?', 
+        3: 'which is the correct syntax for refering to external xxx.js?'
+    }
+    var correct_answer = {
+        1: 'Script', 
+        2: 'opt1',
+        3: 'opt3'
+    }
+    var options = {
+      1: ['Script','javascript','js','scripting'], 
+      2: ['opt1','opt2','opt3','opt4'], 
+      3: ['opt1','opt2','opt3','opt4']
+    }
+    var count  = 1; 
+    var score  = 0;
+    
+    
+    function myFunction(id) 
+    {
+      clicked_ans = document.getElementById(id).innerHTML;
+      corr_ans = correct_answer[count]; 
+      
+      if(corr_ans == clicked_ans)
+      {
+        score += 10;
+        document.getElementById('score').innerHTML = score;
+
+      }
+      if(count == 3)
+      {
+        count=1;
+        localStorage.setItem("Score", score);
+        window.location.href = "score.html";
+      }
+      else 
+      {
+        count++;
+        document.getElementById('progress').value = count;
+        document.getElementById('quesno').innerHTML = count;
+      }
+      callques();
+    }
+    
+    function callques()
+    {
+      document.getElementById('score').innerHTML = score;
+      document.getElementById('ques').innerHTML = ques[count];
+      document.getElementById("opt-text-1").innerHTML = options[count][0];
+      document.getElementById("opt-text-2").innerHTML = options[count][1];
+      document.getElementById("opt-text-3").innerHTML = options[count][2];
+      document.getElementById("opt-text-4").innerHTML = options[count][3];
+    }
+</script>
+</html>
